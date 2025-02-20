@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const instructionsPopup = document.getElementById('instructions-popup');
     const showInstructionsBtn = document.getElementById('show-instructions-btn');
     const closeInstructionsBtn = document.getElementById('close-instructions-btn');
-
-    // Показать/скрыть инструкцию
     if (showInstructionsBtn && instructionsPopup && closeInstructionsBtn) {
         showInstructionsBtn.addEventListener('click', () => {
             instructionsPopup.classList.add('active');
@@ -29,14 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameOver = false;
     let cells = [];
     let flagsPlaced = 0;
-
-    // Настройки по умолчанию
     const settings = {
         easy: { rows: 10, cols: 10, bombs: 10 },
         hard: { rows: 16, cols: 16, bombs: 40 }
     };
-
-    // Инициализация игры
     function initGame() {
         board.style.gridTemplateColumns = `repeat(${cols}, 40px)`;
         board.innerHTML = '';
@@ -45,8 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gameOver = false;
         flagsPlaced = 0;
         updateFlagCount();
-
-        // Создание ячеек
         for (let i = 0; i < rows * cols; i++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
@@ -64,15 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-
-    // Обновление отображения количества флажков
     function updateFlagCount() {
         if (flagCountDisplay) {
             flagCountDisplay.textContent = `Флажки: ${flagsPlaced} / ${bombCount}`;
         }
     }
-
-    // Обработка левого клика
     function handleLeftClick(e) {
         if (gameOver) return;
         const index = parseInt(e.target.dataset.index);
@@ -96,8 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         revealCell(index);
         checkWin();
     }
-
-    // Обработка правого клика
     function handleRightClick(e) {
         e.preventDefault();
         if (gameOver || firstClick) return;
@@ -112,8 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateFlagCount();
         }
     }
-
-    // Генерация бомб после первого клика
     function generateBombs(firstIndex) {
         const exclude = getNeighbors(firstIndex);
         exclude.push(firstIndex);
@@ -127,8 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
-    // Подсчет числа бомб вокруг
     function calculateNumbers() {
         cells.forEach((cell, index) => {
             if (!cell.isBomb) {
@@ -136,8 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Открытие клетки
     function revealCell(index) {
         const cell = cells[index];
         if (cell.revealed || cell.flagged) return;
@@ -152,8 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
             getNeighbors(index).forEach(neighbor => revealCell(neighbor));
         }
     }
-
-    // Получение соседей клетки
     function getNeighbors(index) {
         const neighbors = [];
         const row = Math.floor(index / cols);
@@ -171,8 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return neighbors;
     }
-
-    // Проверка победы
     function checkWin() {
         const nonBombCells = cells.filter(cell => !cell.isBomb);
         if (nonBombCells.every(cell => cell.revealed)) {
@@ -180,8 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showNotification('Победа!', 'win');
         }
     }
-
-    // Показать уведомление
     function showNotification(text, type) {
         const notification = document.createElement('div');
         notification.className = `game-message ${type}`;
@@ -192,8 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
             notification.remove();
         }, 3000);
     }
-
-    // Открыть все клетки при поражении
     function revealAll() {
         cells.forEach((cell, index) => {
             if (cell.isBomb) {
@@ -201,8 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Обработчики событий
     if (startBtn) {
         startBtn.addEventListener('click', () => {
             const difficulty = difficultySelect.value;
