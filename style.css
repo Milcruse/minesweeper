@@ -1,0 +1,357 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+    background-size: cover; 
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(42, 42, 64, 0.9);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    width: fit-content; 
+}
+
+.game-area {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; 
+}
+
+.board {
+    display: grid;
+    gap: 5px;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(58, 58, 90, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden; 
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    background-color: #3a3a5a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cell:hover {
+    background-color: #4a4a6a;
+    transform: scale(1.05);
+}
+
+.cell.revealed {
+    background-color: #4a4a6a;
+    transform: scale(1);
+}
+
+.cell.flag::after {
+    content: "🚩"; 
+    font-size: 1.2rem;
+}
+
+/* Эмодзи для бомбы */
+.cell.bomb::after {
+    content: "💣"; 
+    font-size: 1.2rem;
+}
+
+.cell.revealed[data-number="1"] {
+    color: #4fc3f7 !important; 
+}
+
+.cell.revealed[data-number="2"] {
+    color: #4caf50 !important;
+}
+
+.cell.revealed[data-number="3"] {
+    color: #f44336 !important; 
+}
+
+.cell.revealed[data-number="4"] {
+    color: #9c27b0 !important;
+}
+
+.cell.revealed[data-number="5"] {
+    color: #ff9800 !important;
+}
+.controls {
+    margin-bottom: 20px;
+}
+
+.flag-count {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #4fc3f7;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+button {
+    background-color: #4fc3f7;
+    color: #1e1e2f;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #29b6f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.options {
+    background-color: rgba(58, 58, 90, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.options label {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+    display: block;
+}
+
+.options input,
+.options select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3a3a5a;
+    color: #ffffff;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+#instructions-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8); 
+    border: 2px solid #ffffff; 
+    border-radius: 10px; 
+    padding: 20px;
+    z-index: 1000;
+    color: #ffffff; 
+    max-width: 400px;
+    width: 90%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+#instructions-popup .popup-content {
+    text-align: left;
+}
+
+#instructions-popup h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #ffcc00; 
+}
+
+#instructions-popup p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+#close-instructions-btn {
+    background-color: #ffcc00; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    color: #000000; 
+    transition: background-color 0.3s ease;
+}
+
+#close-instructions-btn:hover {
+    background-color: #e6b800; 
+}
+
+/* Стили для активного состояния попапа */
+#instructions-popup.active {
+    display: block;
+}
+
+.popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-content {
+    background-color: rgba(42, 42, 64, 0.95);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    max-width: 90%;
+    width: 400px;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.popup.active .popup-content {
+    transform: scale(1);
+}
+
+.popup h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #4fc3f7;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.popup p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.popup button {
+    background-color: #4fc3f7;
+    color: #1e1e2f;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.popup button:hover {
+    background-color: #29b6f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.popup button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для уведомлений */
+.game-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 1001;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+.game-message.win {
+    background-color: #4caf50; /* Зеленый для победы */
+    color: #ffffff;
+}
+
+.game-message.lose {
+    background-color: #f44336; /* Красный для поражения */
+    color: #ffffff;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+/* Добавь это в конец CSS, перед медиазапросами */
+@keyframes bombExplosion {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Примени анимацию к бомбе */
+.cell.bomb::after {
+    content: "💣";
+    font-size: 1.2rem;
+    animation: bombExplosion 0.5s ease-in-out; /* Анимация взрыва */
+}
+
+/* Адаптивные стили */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .cell {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+
+    .popup-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .popup h2 {
+        font-size: 1.3rem;
+    }
+
+    .popup p {
+        font-size: 1rem;
+    }
+}

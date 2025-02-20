@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Сапер</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="game-area">
+            <div class="board"></div>
+            <div class="controls">
+                <div class="flag-count">Флажки: 0 / 0</div>
+                <button class="start-btn">Начать игру</button>
+                <button class="settings-btn">Настройки</button>
+                <button id="show-instructions-btn">Инструкция</button>
+                <div class="options hide">
+                    <label for="difficulty">Сложность:</label>
+                    <select id="difficulty">
+                        <option value="easy">Легко</option>
+                        <option value="hard">Сложно</option>
+                    </select>
+                    <label for="bomb-count">Количество бомб:</label>
+                    <input type="number" min="1" max="100" id="bomb-count" value="10" />
+                    <button class="save-settings-btn">Сохранить</button>
+                </div>
+            </div>
+        </div>
+        <div class="popup" id="instructions-popup">
+            <div class="popup-content">
+                <h2>Инструкция к игре</h2>
+                <p>
+                    <strong>Цель игры:</strong> Откройте все ячейки, не нажав на мину.<br>
+                    <strong>Как играть:</strong><br>
+                    1. Нажмите на ячейку, чтобы открыть её.<br>
+                    2. Цифры на ячейках показывают, сколько мин находится рядом с этой ячейкой.<br>
+                    3. Используйте правую кнопку мыши (или долгое нажатие на мобильных устройствах),
+                    чтобы поставить флажок на ячейке, где, по вашему мнению, находится мина.<br>
+                    4. Если вы нажмете на мину, игра закончится.<br>
+                    5. Если вы открыли все ячейки, кроме мин, вы выиграли!<br>
+                    <strong>Удачи!</strong>
+                </p>
+                <button id="close-instructions-btn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
