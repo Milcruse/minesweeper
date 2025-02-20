@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -71,7 +70,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* Эмодзи для бомбы */
 .cell.bomb::after {
     content: "💣"; 
     font-size: 1.2rem;
@@ -221,8 +219,6 @@ button:active {
 #close-instructions-btn:hover {
     background-color: #e6b800; 
 }
-
-/* Стили для активного состояния попапа */
 #instructions-popup.active {
     display: block;
 }
@@ -284,8 +280,6 @@ button:active {
     transform: translateY(0);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
-
-/* Стили для уведомлений */
 .game-message {
     position: fixed;
     top: 20px;
@@ -300,12 +294,12 @@ button:active {
 }
 
 .game-message.win {
-    background-color: #4caf50; /* Зеленый для победы */
+    background-color: #4caf50; 
     color: #ffffff;
 }
 
 .game-message.lose {
-    background-color: #f44336; /* Красный для поражения */
+    background-color: #f44336; 
     color: #ffffff;
 }
 
@@ -315,21 +309,17 @@ button:active {
     90% { opacity: 1; }
     100% { opacity: 0; }
 }
-/* Добавь это в конец CSS, перед медиазапросами */
 @keyframes bombExplosion {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.5); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Примени анимацию к бомбе */
 .cell.bomb::after {
     content: "💣";
     font-size: 1.2rem;
-    animation: bombExplosion 0.5s ease-in-out; /* Анимация взрыва */
+    animation: bombExplosion 0.5s ease-in-out; 
 }
-
-/* Адаптивные стили */
 @media (max-width: 600px) {
     .container {
         padding: 15px;
